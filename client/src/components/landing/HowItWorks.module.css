@@ -1,0 +1,97 @@
+.section {
+  padding: 7rem 0;
+  background: var(--bg-secondary);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.header h2 {
+  font-size: var(--text-4xl);
+  margin-bottom: 1rem;
+}
+
+.header p {
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+}
+
+.stepsContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  position: relative;
+}
+
+.connector {
+  position: absolute;
+  top: 42px;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(16, 185, 129, 0.2) 0px,
+    rgba(16, 185, 129, 0.2) 8px,
+    transparent 8px,
+    transparent 16px
+  );
+  z-index: 0;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.numBadge {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: 800;
+  color: white;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-glow-green);
+}
+
+.stepIcon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.stepTitle {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.stepDesc {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 300px;
+}
+
+@media (max-width: 768px) {
+  .stepsContainer {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .connector {
+    display: none;
+  }
+}
