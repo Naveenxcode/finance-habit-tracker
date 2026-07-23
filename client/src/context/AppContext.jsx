@@ -131,37 +131,37 @@ export const AppProvider = ({ children }) => {
       return saved && saved !== 'null' ? JSON.parse(saved) : null;
     }
     const saved = localStorage.getItem('wh_user');
-    return saved && saved !== 'null' ? JSON.parse(saved) : INITIAL_USER;
+    return saved && saved !== 'null' ? JSON.parse(saved) : null;
   });
 
   const [habits, setHabits] = useState(() => {
     const saved = localStorage.getItem('wh_habits');
-    return saved ? JSON.parse(saved) : INITIAL_HABITS;
+    return saved && saved !== 'null' ? JSON.parse(saved) : [];
   });
 
   const [goals, setGoals] = useState(() => {
     const saved = localStorage.getItem('wh_goals');
-    return saved ? JSON.parse(saved) : INITIAL_GOALS;
+    return saved && saved !== 'null' ? JSON.parse(saved) : [];
   });
 
   const [assets, setAssets] = useState(() => {
     const saved = localStorage.getItem('wh_assets');
-    return saved ? JSON.parse(saved) : INITIAL_ASSETS;
+    return saved && saved !== 'null' ? JSON.parse(saved) : [];
   });
 
   const [liabilities, setLiabilities] = useState(() => {
     const saved = localStorage.getItem('wh_liabilities');
-    return saved ? JSON.parse(saved) : INITIAL_LIABILITIES;
+    return saved && saved !== 'null' ? JSON.parse(saved) : [];
   });
 
   const [transactions, setTransactions] = useState(() => {
     const saved = localStorage.getItem('wh_transactions');
-    return saved ? JSON.parse(saved) : INITIAL_TRANSACTIONS;
+    return saved && saved !== 'null' ? JSON.parse(saved) : [];
   });
 
   const [piggyBankBalance, setPiggyBankBalance] = useState(() => {
     const saved = localStorage.getItem('wh_piggy');
-    return saved ? Number(saved) : 14650;
+    return saved && saved !== 'null' ? Number(saved) : 0;
   });
 
   const getAuthHeaders = () => {

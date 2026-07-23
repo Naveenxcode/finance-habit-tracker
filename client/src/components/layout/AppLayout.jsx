@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, Navigate } from 'react-router-dom';
 import { HiOutlineMenu, HiOutlineX, HiOutlineBell } from 'react-icons/hi';
 import Sidebar from './Sidebar';
 import UserProfileModal from '../common/UserProfileModal';
+import { useApp } from '../../context/AppContext';
 import styles from './AppLayout.module.css';
 
 const AppLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { user } = useApp();
+
+  if (!user) {
+    return <Navigate to="/auth" replace />;
+  }
+
 
   return (
     <div className={styles.appShell}>
