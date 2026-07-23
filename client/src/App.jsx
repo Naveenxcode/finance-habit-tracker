@@ -4,6 +4,7 @@ import { AppProvider } from './context/AppContext';
 
 import Landing from './pages/Landing';
 import Auth from './pages/Auth';
+import ProjectReport from './pages/ProjectReport';
 import AppLayout from './components/layout/AppLayout';
 import Dashboard from './pages/Dashboard';
 import Habits from './pages/Habits';
@@ -18,6 +19,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/report" element={<ProjectReport />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/app" element={<AppLayout />}>
             <Route index element={<Dashboard />} />
