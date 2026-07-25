@@ -1,5 +1,6 @@
 import { HiSparkles } from 'react-icons/hi2';
-import { FiGithub, FiTwitter, FiLinkedin } from 'react-icons/fi';
+import { FiGithub, FiLinkedin } from 'react-icons/fi';
+import { FaXTwitter } from 'react-icons/fa6';
 import styles from './Footer.module.css';
 
 const Footer = () => {
@@ -13,9 +14,9 @@ const Footer = () => {
           </a>
           <p className={styles.tagline}>Build wealth, one habit at a time.</p>
           <div className={styles.socials}>
-            <a href="#" className={styles.socialLink} aria-label="GitHub"><FiGithub /></a>
-            <a href="#" className={styles.socialLink} aria-label="Twitter"><FiTwitter /></a>
-            <a href="#" className={styles.socialLink} aria-label="LinkedIn"><FiLinkedin /></a>
+            <a href="https://github.com/Naveenxcode" target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="GitHub"><FiGithub /></a>
+            <a href="https://x.com/ChhabilaKumarP2" target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="X (Twitter)"><FaXTwitter /></a>
+            <a href="https://www.linkedin.com/in/chhabila-kumar-pradhan-441022208/" target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="LinkedIn"><FiLinkedin /></a>
           </div>
         </div>
 
