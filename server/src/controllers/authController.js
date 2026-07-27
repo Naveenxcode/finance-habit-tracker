@@ -46,6 +46,48 @@ exports.login = asyncHandler(async (req, res) => {
   });
 });
 
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+// @route POST /api/v1/auth/google
+exports.googleLogin = asyncHandler(async (req, res) => {
+  if (mongoose.connection.readyState !== 1) {
+    throw new ApiError(503, 'Database disconnected. Use offline fallback.');
+  }
+  const { credential } = req.body;
+  if (!credential) throw new ApiError(400, 'Google token is required');
+
+  const ticket = await client.verifyIdToken({
+    idToken: credential,
+    audience: process.env.GOOGLE_CLIENT_ID,
+  });
+  const payload = ticket.getPayload();
+  const { email, name, picture } = payload;
+
+  let user = await User.findOne({ email });
+
+  if (!user) {
+    // Register new user via Google
+    // Generate random secure password since they login via Google
+    const randomPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+    user = await User.create({ 
+      name, 
+      email, 
+      password: randomPassword,
+      avatar: picture 
+    });
+  }
+
+  user.lastLoginAt = new Date();
+  await user.save({ validateBeforeSave: false });
+  const token = generateToken(user._id);
+
+  res.json({
+    success: true, token,
+    user: { _id: user._id, name: user.name, email: user.email, role: user.role, onboardingCompleted: user.onboardingCompleted, settings: user.settings, avatar: user.avatar }
+  });
+});
+
 // @route GET /api/v1/auth/me
 exports.getMe = asyncHandler(async (req, res) => {
   res.json({ success: true, user: req.user });

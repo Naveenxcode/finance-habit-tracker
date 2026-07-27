@@ -472,6 +472,30 @@ export const AppProvider = ({ children }) => {
     throw new Error('Incorrect email or password! Please check your credentials or register a new account.');
   };
 
+  const loginWithGoogle = async (credential) => {
+    localStorage.removeItem('wh_logged_out');
+    const res = await fetch(`${API_BASE}/api/v1/auth/google`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ credential })
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('wh_token', data.token);
+      }
+      if (data.user) {
+        setUser(data.user);
+        await loadAccountData(data.user.email);
+        localStorage.setItem('wh_user', JSON.stringify(data.user));
+        return true;
+      }
+    }
+    const errData = await res.json().catch(() => ({}));
+    throw new Error(errData.message || 'Google login failed');
+  };
+
   const demoLogin = () => {
     localStorage.removeItem('wh_logged_out');
     setUser(INITIAL_USER);
@@ -764,7 +788,7 @@ export const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider value={{
       user, setUser,
-      registerUser, loginUser, demoLogin, logout, updateProfile,
+      registerUser, loginUser, loginWithGoogle, demoLogin, logout, updateProfile,
       habits, completeHabit, addHabit, deleteHabit,
       goals, addGoal, contributeGoal,
       assets, addAsset, deleteAsset,

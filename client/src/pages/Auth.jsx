@@ -2,13 +2,26 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiOutlineEye, HiOutlineEyeOff } from 'react-icons/hi';
+import { GoogleLogin } from '@react-oauth/google';
 import { useApp } from '../context/AppContext';
 import styles from './Auth.module.css';
 
 const Auth = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { registerUser, loginUser, demoLogin } = useApp();
+  const { registerUser, loginUser, loginWithGoogle, demoLogin } = useApp();
+
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      setLoading(true);
+      await loginWithGoogle(credentialResponse.credential);
+      navigate('/app');
+    } catch (err) {
+      setError(err.message || 'Google Sign-In failed');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const [isLogin, setIsLogin] = useState(() => {
     return !location.search.includes('mode=register');
@@ -205,6 +218,19 @@ const Auth = () => {
 
         <div className={styles.divider}>
           <span>OR</span>
+        </div>
+
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem', width: '100%' }}>
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={() => setError('Google Sign-In was unsuccessful.')}
+            useOneTap
+            shape="rectangular"
+            theme="outline"
+            size="large"
+            text={isLogin ? "signin_with" : "signup_with"}
+            width="100%"
+          />
         </div>
 
         <button type="button" className={styles.demoBtn} onClick={handleDemo}>
