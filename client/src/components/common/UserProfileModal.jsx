@@ -89,8 +89,13 @@ const UserProfileModal = ({ isLanding = false }) => {
         className={styles.avatarBtn}
         onClick={() => setDropdownOpen(!dropdownOpen)}
         title={user.name}
+        style={{ padding: user?.avatar?.startsWith('http') ? 0 : undefined, overflow: 'hidden' }}
       >
-        <span className={styles.avatarLetter}>{firstLetter}</span>
+        {user?.avatar?.startsWith('http') ? (
+          <img src={user.avatar} alt={user.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        ) : (
+          <span className={styles.avatarLetter}>{firstLetter}</span>
+        )}
       </button>
 
       {/* Dropdown Menu */}

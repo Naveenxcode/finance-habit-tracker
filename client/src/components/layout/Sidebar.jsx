@@ -74,7 +74,13 @@ const Sidebar = ({ isOpen, onClose }) => {
       {/* User Footer */}
       <div className={styles.footer}>
         <div className={styles.userCard}>
-          <div className={styles.avatar}>{user?.avatar || '👨‍💻'}</div>
+          <div className={styles.avatar}>
+            {user?.avatar?.startsWith('http') ? (
+              <img src={user.avatar} alt="Avatar" style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
+            ) : (
+              user?.avatar || '👨‍💻'
+            )}
+          </div>
           <div className={styles.userInfo}>
             <div className={styles.userName}>{user?.name}</div>
             <div className={styles.userLevel}>{user?.level || 'Wealth Builder'}</div>
