@@ -118,6 +118,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #fff;
   font-size: 0.96rem;
+  width: 100%;
 }
 
 .submitBtn {
