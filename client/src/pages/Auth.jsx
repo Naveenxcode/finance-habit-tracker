@@ -220,13 +220,13 @@ const Auth = () => {
           <span>OR</span>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem', width: '100%' }}>
+        <div className={styles.googleBtnContainer}>
           <GoogleLogin
             onSuccess={handleGoogleSuccess}
             onError={() => setError('Google Sign-In was unsuccessful.')}
             useOneTap
-            shape="rectangular"
-            theme="outline"
+            shape="pill"
+            theme="filled_black"
             size="large"
             text={isLogin ? "signin_with" : "signup_with"}
           />
